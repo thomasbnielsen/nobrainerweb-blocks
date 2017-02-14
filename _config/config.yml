@@ -3,7 +3,13 @@ Name: nobrainerweb-blocks
 After:
   - 'framework/*'
   - 'cms/*'
+Before:
+  - 'blocks'
 ---
+
+SiteTree:
+  extensions:
+    - NobrainerWeb\Blocks\BlocksSiteTreeExtension
 
 Block:
   extensions:
