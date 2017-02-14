@@ -1,14 +1,12 @@
 <?php
 
-namespace NobrainerWeb\Blocks;
-
 /**
  * Created by PhpStorm.
  * User: tn
  * Date: 08/02/17
  * Time: 22.58
  */
-class BaseBlock extends \Block
+class BaseBlock extends Block
 {
     /**
      * If the singular name is set in a private static $singular_name, it cannot be changed using the translation files
@@ -52,7 +50,7 @@ class BaseBlock extends \Block
      **/
     public function forTemplate()
     {
-        if ($this->Template && \SSViewer::hasTemplate($this->Template)) {
+        if ($this->Template && SSViewer::hasTemplate($this->Template)) {
             return $this->renderWith($this->Template);
         }
 
