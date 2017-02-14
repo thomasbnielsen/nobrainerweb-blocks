@@ -76,7 +76,23 @@ class ChooseBlockModel_ItemRequest extends \GridFieldDetailForm_ItemRequest
             $link = \Controller::join_links(
                 $this->gridField->Link(), 'new-block', $data['BlockType']
             ); // link on to edit the block in the normal way of editing dataobjects
-            return $controller->redirect($link);
+
+            // include GET vars to indicate preset fields on the newly created block
+            // this could be the chosen template
+            $extravars = '';
+            foreach($data as $key => $val){
+                // check if its meant to be used as predefined field
+                $pieces = explode('_', $key);
+                if(isset($pieces[1]) && $pieces[0] == 'BlockSetting'){
+                    if($extravars){
+                        $extravars .= '&' . $pieces[1] = '=' . $val;
+                    } else {
+                        $extravars .= '?' . $pieces[1] . '=' . $val;
+                    }
+                }
+            }
+
+            return $controller->redirect($link . $extravars);
         } else {
             return parent::doSave($data, $form);
         }
@@ -120,6 +136,9 @@ class ChooseBlockModel_ItemRequest extends \GridFieldDetailForm_ItemRequest
 
         // this field is quite important see doSave()
         $fields->push(\HiddenField::create('BlockStage')->setValue('choose'));
+
+        // use field with names "BlockSetting_{field_name}" to set predefined fields for that block
+        //$fields->push(\OptionsetField::create('BlockSetting_Template', $this->getBlockSelectionLabel(), $this->getBlockSelectionOptions()));
 
         return $fields;
     }

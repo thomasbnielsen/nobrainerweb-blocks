@@ -13,28 +13,36 @@ class BlockExtension extends \DataExtension
 {
     public function updateCMSFields(\FieldList $fields)
     {
-        $fields->push(\HiddenField::create('PageID'));
-        $fields->push(\HiddenField::create('BlockSort'));
-        $fields->push(\HiddenField::create('BlockType'));
+        $fields->addFieldToTab('Root.Main', \TextField::create('Template'));
 
-        if ($this->getAction() == 'new') {
-            //return $this->getBlockSelectionFields($fields);
+        // if any predefined block field values have been included in the url, use them to auto fill out some fields
+        if($vals = $this->getPredefinedBlockValues()){
+
+            foreach($vals as $name => $val){
+                $field = $fields->dataFieldByName($name);
+                if($field){
+                    $field->setValue($val);
+                }
+            }
+
         }
     }
 
     /**
-     * Get the new or edit action
+     * There might be some GET variables containing field values
      *
-     * @since version 1.0.0
-     *
-     * @return string
-     **/
-    private function getAction()
+     * @return array|null
+     */
+    public function getPredefinedBlockValues()
     {
-        $path = explode('/', \Controller::curr()->getRequest()->getURL());
+        $request = \Controller::curr()->getRequest();
+        $params = $request->getVars();
 
-        return array_pop($path);
+        if(isset($params['url'])){
+            unset($params['url']);
+        }
+
+        return !empty($params) ? $params : null;
     }
-
 
 }
