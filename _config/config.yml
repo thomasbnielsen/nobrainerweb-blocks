@@ -8,6 +8,7 @@ After:
 Block:
   extensions:
     - NobrainerWeb\Blocks\BlockExtension
+    - NobrainerWeb\Blocks\TemplateProvider
 
 BlockManager:
     themes:
