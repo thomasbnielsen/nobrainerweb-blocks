@@ -13,8 +13,6 @@ class BlockExtension extends \DataExtension
 {
     public function updateCMSFields(\FieldList $fields)
     {
-        $fields->addFieldToTab('Root.Main', \TextField::create('Template'));
-
         // if any predefined block field values have been included in the url, use them to auto fill out some fields
         if($vals = $this->getPredefinedBlockValues()){
 
