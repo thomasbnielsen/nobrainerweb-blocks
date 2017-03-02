@@ -28,4 +28,20 @@ class BlockManager extends \BlockManager
         return Helper::getConfSetting($block_type, $setting);
     }
 
+    /**
+     * @param $block_type
+     * @param $template
+     * @return string
+     */
+    public function getBlockTemplateThumbnailName($block_type, $template)
+    {
+        return $block_type . '_' . $template;
+    }
+
+    public function getBlockTemplateThumbnail($block_type, $template, $filetype = 'png', $path = 'nobrainerweb-blocks/images/template-thumbnails/')
+    {
+        $name = $this->getBlockTemplateThumbnailName($block_type, $template);
+
+        return $path . $name . '.' . $filetype;
+    }
 }

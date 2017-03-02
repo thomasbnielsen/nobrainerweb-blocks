@@ -166,19 +166,30 @@ class ChooseBlockModel_ItemRequest extends \GridFieldDetailForm_ItemRequest
      **/
     private function getBlockSelectionOptions()
     {
+        $manager = singleton('NobrainerWeb\Blocks\BlockManager');
         $types = array_values(\ClassInfo::subclassesFor('Block'));
 
         $html = '<span class="page-icon class-%s"></span>
                  <strong class="title">%s</strong>
-                 <span class="description">%s</span>';
+                 <span class="description">%s</span><span class="templates">%s</span>';
 
         $options = [];
 
         foreach ($types as $type) {
+            $templates_markup = '';
+
+            if($templates = $manager->getBlockConfigSetting($type, 'templates')){
+                foreach($templates as $template){
+                    $img = $manager->getBlockTemplateThumbnail($type, $template);
+                    $templates_markup .= '<img src="' . $img . '">';
+                }
+            }
+
             $option = sprintf($html,
                 $type,
                 $type,
-                singleton('NobrainerWeb\Blocks\BlockManager')->getBlockConfigSetting($type, 'description')
+                $manager->getBlockConfigSetting($type, 'description'),
+                $templates_markup
             );
             $options[$type] = \DBField::create_field('HTMLText', $option);
         }
