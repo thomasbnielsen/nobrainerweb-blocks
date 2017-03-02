@@ -43,4 +43,15 @@ class BlockExtension extends \DataExtension
         return !empty($params) ? $params : null;
     }
 
+    public function getBlockManager()
+    {
+        $manager = $this->owner->blockManager;
+
+        if(!$manager){
+            $manager = singleton('NobrainerWeb\Blocks\BlockManager');
+        }
+
+        return $manager;
+    }
+
 }

@@ -15,30 +15,7 @@ Block:
   extensions:
     - NobrainerWeb\Blocks\BlockExtension
 
-BlockManager:
-    themes:
-        foundation:
-            models:
-              ContentBlock:
-                templates:
-                  - Template1
-                  - Template2
-                settings:
-            areas:
-                Sidebar: true # a Sidebar area will be available on all page types in simple theme
-                BeforeContent:
-                    only: HomePage # a BeforeContent area will be available only on HomePage page types in simple theme
-                AfterContent:
-                    except: HomePage # a AfterContent area will be available on all page types except HomePage in simple theme
-                Footer: true # a Footer area will be available on all page types in simple theme
-            #use_blocksets: false # Whether to use BlockSet functionality (default if undeclared: true)
-            #use_extra_css_classes: true # Whether to allow cms users to add extra css classes to blocks (default if undeclared: false)
-            #prefix_default_css_classes: 'myprefix--' # prefix the automatically generated CSSClasses based on class name (default if undeclared: false)
-            #pagetype_whitelist: # Enable the Blocks tab only pages of these types (optional)
-            #  - HomePage
-            #pagetype_blacklist: # Disable the Blocks tab on pages of these types (optional)
-            #  - ContactPage
-            #disabled_blocks: #allows you to disable specific blocks (optional)
-            #  - ContentBlock
-    #use_default_blocks: false # Disable/enable the default Block types (ContentBlock) (default if undeclared: true)
-    #block_area_preview: false # Disable block area preview button in CMS (default if undeclared: true)
+
+Injector:
+  BlockManager:
+    class: NobrainerWeb\Blocks\BlockManager

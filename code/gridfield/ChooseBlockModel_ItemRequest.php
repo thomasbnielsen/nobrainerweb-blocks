@@ -178,7 +178,7 @@ class ChooseBlockModel_ItemRequest extends \GridFieldDetailForm_ItemRequest
             $option = sprintf($html,
                 $type,
                 $type,
-                \Config::inst()->get($type, 'description')
+                singleton('NobrainerWeb\Blocks\BlockManager')->getBlockConfigSetting($type, 'description')
             );
             $options[$type] = \DBField::create_field('HTMLText', $option);
         }
