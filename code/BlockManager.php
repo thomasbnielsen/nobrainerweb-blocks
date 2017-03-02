@@ -38,6 +38,17 @@ class BlockManager extends \BlockManager
         return $block_type . '_' . $template;
     }
 
+    /**
+     * TODO set path and filetype as property/config property
+     * TODO check in active theme for any overwrites of thumbnails
+     * TODO check if file exists else return empty string
+     *
+     * @param        $block_type
+     * @param        $template
+     * @param string $filetype
+     * @param string $path
+     * @return string
+     */
     public function getBlockTemplateThumbnail($block_type, $template, $filetype = 'png', $path = 'nobrainerweb-blocks/images/template-thumbnails/')
     {
         $name = $this->getBlockTemplateThumbnailName($block_type, $template);
